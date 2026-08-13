@@ -10,13 +10,13 @@ class OnboardingScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
-
         actions: [
           TextButton(
             onPressed: () {
-              // TODO: الانتقال إلى HomeScreen
+              // TODO: Navigate to Home
             },
             child: const Text(
               "Skip",
@@ -36,27 +36,28 @@ class OnboardingScreen extends StatelessWidget {
           final OnboardingModel model =
           OnboardingModel.onboardingList[index];
 
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(model.image),
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(model.image),
 
-              const SizedBox(height: 24),
+                const SizedBox(height: 24),
 
-              Text(
-                model.title,
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Color(0xFF4E4B66),
-                  fontWeight: FontWeight.w700,
+                Text(
+                  model.title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Color(0xFF4E4B66),
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 12),
+                const SizedBox(height: 12),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Text(
+                Text(
                   model.description,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
@@ -65,10 +66,38 @@ class OnboardingScreen extends StatelessWidget {
                     height: 1.5,
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
+      ),
+
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(20),
+        child: SizedBox(
+          width: double.infinity,
+          height: 55,
+          child: ElevatedButton(
+            onPressed: () {
+              // TODO: Next Page
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFC53030),
+              foregroundColor: Colors.white,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: const Text(
+              "Next",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
