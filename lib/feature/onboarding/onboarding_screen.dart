@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../models/onboarding_model.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
+
+  @override
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  final PageController _pageController = PageController();
+
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +40,17 @@ class OnboardingScreen extends StatelessWidget {
       ),
 
       body: PageView.builder(
+        controller: _pageController,
         itemCount: OnboardingModel.onboardingList.length,
-        itemBuilder: (BuildContext context, int index) {
-          final OnboardingModel model =
-          OnboardingModel.onboardingList[index];
+
+        onPageChanged: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+
+        itemBuilder: (context, index) {
+          final model = OnboardingModel.onboardingList[index];
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -79,7 +95,15 @@ class OnboardingScreen extends StatelessWidget {
           height: 55,
           child: ElevatedButton(
             onPressed: () {
-              // TODO: Next Page
+              if (currentIndex <
+                  OnboardingModel.onboardingList.length - 1) {
+                _pageController.nextPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              } else {
+                // TODO: Navigate to Home
+              }
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFC53030),
@@ -89,9 +113,12 @@ class OnboardingScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            child: const Text(
-              "Next",
-              style: TextStyle(
+            child: Text(
+              currentIndex ==
+                  OnboardingModel.onboardingList.length - 1
+                  ? "Get Started"
+                  : "Next",
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
@@ -100,5 +127,11 @@ class OnboardingScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }
