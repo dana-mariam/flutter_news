@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'feature/onboarding/onboarding_screen.dart';
 import 'feature/splash/splash_screen.dart';
 
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      home: const SplashScreen(),
+      home: const OnboardingScreen(),
     );
   }
 }

@@ -8,6 +8,28 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+
+        actions: [
+          TextButton(
+            onPressed: () {
+              // TODO: الانتقال إلى HomeScreen
+            },
+            child: const Text(
+              "Skip",
+              style: TextStyle(
+                color: Color(0xFFC53030),
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+
       body: PageView.builder(
         itemCount: OnboardingModel.onboardingList.length,
         itemBuilder: (BuildContext context, int index) {
@@ -33,8 +55,7 @@ class OnboardingScreen extends StatelessWidget {
               const SizedBox(height: 12),
 
               Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Text(
                   model.description,
                   textAlign: TextAlign.center,
