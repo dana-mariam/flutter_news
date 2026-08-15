@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+
+import '../../constants/storage_key.dart';
+import '../../controllers/onboarding_controller.dart';
+
+import '../../services/shared_preferences_service.dart';
+import '../home/home_screen.dart';
 import '../models/onboarding_model.dart';
 
-class OnboardingScreen extends StatefulWidget {
+class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
-}
-
-class _OnboardingScreenState extends State<OnboardingScreen> {
-  final PageController _pageController = PageController();
-
-  int currentIndex = 0;
-
-  @override
   Widget build(BuildContext context) {
+    final controller = context.watch<OnboardingController>();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -24,8 +24,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         automaticallyImplyLeading: false,
         actions: [
           TextButton(
-            onPressed: () {
-              // TODO: Navigate to Home
+            onPressed: () async {
+              await SharedPreferencesService.setBool(
+                StorageKey.isFirstTime,
+                false,
+              );
+
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const HomeScreen(),
+                ),
+              );
             },
             child: const Text(
               "Skip",
@@ -40,14 +50,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
 
       body: PageView.builder(
-        controller: _pageController,
+        controller: controller.pageController,
         itemCount: OnboardingModel.onboardingList.length,
 
-        onPageChanged: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
+        onPageChanged: controller.onPageChange,
 
         itemBuilder: (context, index) {
           final model = OnboardingModel.onboardingList[index];
@@ -94,17 +100,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           width: double.infinity,
           height: 55,
           child: ElevatedButton(
-            onPressed: () {
-              if (currentIndex <
-                  OnboardingModel.onboardingList.length - 1) {
-                _pageController.nextPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                );
-              } else {
-                // TODO: Navigate to Home
-              }
-            },
+            onPressed: controller.nextPage,
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFC53030),
               foregroundColor: Colors.white,
@@ -114,8 +110,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
             child: Text(
-              currentIndex ==
-                  OnboardingModel.onboardingList.length - 1
+              controller.isLastPage
                   ? "Get Started"
                   : "Next",
               style: const TextStyle(
@@ -127,11 +122,5 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
   }
 }

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:news_app/services/shared_preferences_service.dart';
 
 
-import '../../constants/storage_key.dart';
-import '../home/home_screen.dart';
-import '../onboarding/onboarding_screen.dart';
-
+import 'constants/storage_key.dart';
+import 'feature/home/home_screen.dart';
+import 'feature/onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -64,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Image.asset(
-        "assets/images/iPhone 13 mini - 3.png",
+        "assets/images/splash.png",
         width: double.infinity,
         fit: BoxFit.cover,
       ),
