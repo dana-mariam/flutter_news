@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../constants/storage_key.dart';
+import '../feature/login/login_screen.dart';
+import '../services/shared_preferences_service.dart';
+
 class OnboardingController extends ChangeNotifier {
 
   final PageController pageController = PageController();
@@ -17,7 +21,7 @@ class OnboardingController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void nextPage() {
+  Future<void> nextPage(BuildContext context) async {
 
     if (!isLastPage) {
 
@@ -28,7 +32,17 @@ class OnboardingController extends ChangeNotifier {
 
     } else {
 
-      // الانتقال إلى Home
+      await SharedPreferencesService.setBool(
+        StorageKey.isFirstTime,
+        false,
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const LoginScreen(),
+        ),
+      );
 
     }
   }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import '../../constants/storage_key.dart';
 import '../../controllers/onboarding_controller.dart';
-
 import '../../services/shared_preferences_service.dart';
-import '../home/home_screen.dart';
+
+import '../login/login_screen.dart';
 import '../models/onboarding_model.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -33,7 +32,7 @@ class OnboardingScreen extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const HomeScreen(),
+                  builder: (_) => const LoginScreen(),
                 ),
               );
             },
@@ -52,9 +51,7 @@ class OnboardingScreen extends StatelessWidget {
       body: PageView.builder(
         controller: controller.pageController,
         itemCount: OnboardingModel.onboardingList.length,
-
         onPageChanged: controller.onPageChange,
-
         itemBuilder: (context, index) {
           final model = OnboardingModel.onboardingList[index];
 
@@ -100,7 +97,7 @@ class OnboardingScreen extends StatelessWidget {
           width: double.infinity,
           height: 55,
           child: ElevatedButton(
-            onPressed: controller.nextPage,
+            onPressed: () => controller.nextPage(context),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFC53030),
               foregroundColor: Colors.white,
