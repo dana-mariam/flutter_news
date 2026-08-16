@@ -5,7 +5,7 @@ import '../../constants/storage_key.dart';
 import '../../controllers/onboarding_controller.dart';
 import '../../services/shared_preferences_service.dart';
 
-import '../login/login_screen.dart';
+import '../auth/login/login_screen.dart';
 import '../models/onboarding_model.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -32,7 +32,7 @@ class OnboardingScreen extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const LoginScreen(),
+                  builder: (_) => LoginScreen(),
                 ),
               );
             },

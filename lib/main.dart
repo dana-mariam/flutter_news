@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'controllers/onboarding_controller.dart';
 
+import 'feature/auth/login/login_screen.dart';
 import 'feature/home/home_screen.dart';
 import 'feature/onboarding/onboarding_screen.dart';
 import 'feature/splash/splash_screen.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
 
-        home: const SplashScreen(),
+        home: LoginScreen(),
         // أو إذا بدك تبدأ من السبلاش:
         // home: const SplashScreen(),
       ),

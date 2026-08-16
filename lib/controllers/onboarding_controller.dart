@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/storage_key.dart';
-import '../feature/login/login_screen.dart';
+import '../feature/auth/login/login_screen.dart';
 import '../services/shared_preferences_service.dart';
 
 class OnboardingController extends ChangeNotifier {
@@ -40,7 +40,7 @@ class OnboardingController extends ChangeNotifier {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (_) => const LoginScreen(),
+          builder: (_) => LoginScreen(),
         ),
       );
 
