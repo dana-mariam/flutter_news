@@ -30,10 +30,11 @@ class MyApp extends StatelessWidget {
             seedColor: Colors.deepPurple,
           ),
         ),
+        home: const HomeScreen(),
 
-        home: LoginScreen(),
+
         // أو إذا بدك تبدأ من السبلاش:
-        // home: const SplashScreen(),
+         //home: const SplashScreen(),
       ),
     );
   }
