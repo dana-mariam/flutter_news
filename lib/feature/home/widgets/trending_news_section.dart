@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/date_formatter.dart';
+
+import '../../models/article_model.dart';
+
 class TrendingNewsSection extends StatelessWidget {
-  const TrendingNewsSection({super.key});
+  final List<ArticleModel> articles;
+
+
+  const TrendingNewsSection({
+    super.key,
+    required this.articles,
+  });
+
 
   @override
   Widget build(BuildContext context) {
@@ -9,10 +20,13 @@ class TrendingNewsSection extends StatelessWidget {
       height: 220,
       child: PageView.builder(
         controller: PageController(
-          viewportFraction: 0.88,
+          viewportFraction: .88,
         ),
-        itemCount: 5,
+        itemCount: articles.length,
         itemBuilder: (context, index) {
+          final article = articles[index];
+
+
           return Padding(
             padding: const EdgeInsets.only(right: 12),
             child: ClipRRect(
@@ -20,8 +34,9 @@ class TrendingNewsSection extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned.fill(
-                    child: Image.asset(
-                      "assets/images/iPhone 13 mini - 3.png",
+                    child: Image.network(
+                      article.image ??
+                          "https://via.placeholder.com/400x300",
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -46,11 +61,12 @@ class TrendingNewsSection extends StatelessWidget {
                     right: 16,
                     bottom: 16,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Europe",
-                          style: TextStyle(
+                        Text(
+                          article.source,
+                          style: const TextStyle(
                             color: Colors.white70,
                             fontSize: 14,
                           ),
@@ -58,11 +74,11 @@ class TrendingNewsSection extends StatelessWidget {
 
                         const SizedBox(height: 8),
 
-                        const Text(
-                          "Russian warship: Moskva sinks in Black Sea",
+                        Text(
+                          article.title,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -76,26 +92,26 @@ class TrendingNewsSection extends StatelessWidget {
                             const CircleAvatar(
                               radius: 12,
                               backgroundColor: Colors.red,
-                              child: Text(
-                                "C",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
+                              child: Icon(
+                                Icons.newspaper,
+                                size: 14,
+                                color: Colors.white,
                               ),
                             ),
 
                             const SizedBox(width: 8),
 
-                            const Text(
-                              "CNN",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
+                            Expanded(
+                              child: Text(
+                                article.source,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
+                                overflow:
+                                TextOverflow.ellipsis,
                               ),
                             ),
-
-                            const Spacer(),
 
                             const Icon(
                               Icons.access_time,
@@ -105,9 +121,11 @@ class TrendingNewsSection extends StatelessWidget {
 
                             const SizedBox(width: 4),
 
-                            const Text(
-                              "4h ago",
-                              style: TextStyle(
+                            Text(
+                              DateFormatter.formatDateTime(
+                                article.publishedAt,
+                              ),
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 13,
                               ),
