@@ -4,6 +4,15 @@ import '../core/constants/api_constants.dart';
 import '../feature/models/article_model.dart';
 
 class ApiService {
+  // Singleton Instance
+  static final ApiService _instance = ApiService._();
+
+  // Factory Constructor
+  factory ApiService() => _instance;
+
+  // Private Constructor
+  ApiService._();
+
   final Dio dio = Dio();
 
   Future<List<ArticleModel>> getTopHeadlines() async {
@@ -36,6 +45,7 @@ class ApiService {
       throw Exception(e.toString());
     }
   }
+
   Future<List<ArticleModel>> getNewsByCategory(
       String category,
       ) async {
