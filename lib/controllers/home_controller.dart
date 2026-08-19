@@ -4,7 +4,9 @@ import '../feature/models/article_model.dart';
 import '../repositories/news_repository.dart';
 
 class HomeController extends ChangeNotifier {
-  final NewsRepository _repository = NewsRepository();
+  final NewsRepository newsRepository;
+
+  HomeController(this.newsRepository);
 
   List<ArticleModel> articles = [];
 
@@ -17,7 +19,7 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      articles = await _repository.getTopHeadlines();
+      articles = await newsRepository.getTopHeadlines();
 
       print("Articles: ${articles.length}");
     } catch (e) {
@@ -34,9 +36,9 @@ class HomeController extends ChangeNotifier {
       notifyListeners();
 
       if (category == "All") {
-        articles = await _repository.getTopHeadlines();
+        articles = await newsRepository.getTopHeadlines();
       } else {
-        articles = await _repository.getNewsByCategory(category);
+        articles = await newsRepository.getNewsByCategory(category);
       }
     } catch (e) {
       debugPrint(e.toString());

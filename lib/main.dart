@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/repositories/news_repository.dart';
 import 'package:provider/provider.dart';
 
 import 'controllers/home_controller.dart';
@@ -15,7 +16,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => HomeController(),
+      create: (_) => HomeController(
+        NewsRepository(),
+      ),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
