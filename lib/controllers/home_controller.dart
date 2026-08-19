@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 
 import '../feature/models/article_model.dart';
-import '../services/api_service.dart';
+import '../repositories/news_repository.dart';
 
 class HomeController extends ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final NewsRepository _repository = NewsRepository();
 
   List<ArticleModel> articles = [];
 
   bool isLoading = false;
 
   Future<void> getTopHeadlines() async {
-    try {
-      isLoading = true;
-      notifyListeners();
+    print("getTopHeadlines called");
 
-      articles = await _apiService.getTopHeadlines();
+    isLoading = true;
+    notifyListeners();
+
+    try {
+      articles = await _repository.getTopHeadlines();
+
+      print("Articles: ${articles.length}");
     } catch (e) {
-      debugPrint(e.toString());
-    } finally {
-      isLoading = false;
-      notifyListeners();
+      print("ERROR: $e");
     }
+
+    isLoading = false;
+    notifyListeners();
   }
 
   Future<void> getNewsByCategory(String category) async {
@@ -30,10 +34,9 @@ class HomeController extends ChangeNotifier {
       notifyListeners();
 
       if (category == "All") {
-        articles = await _apiService.getTopHeadlines();
+        articles = await _repository.getTopHeadlines();
       } else {
-        articles =
-        await _apiService.getNewsByCategory(category);
+        articles = await _repository.getNewsByCategory(category);
       }
     } catch (e) {
       debugPrint(e.toString());
