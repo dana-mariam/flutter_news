@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../feature/models/article_model.dart';
 import '../repositories/news_repository.dart';
+import '../repositories/news_repository_interface.dart';
 
 class HomeController extends ChangeNotifier {
-  final NewsRepository newsRepository;
+  final NewsRepositoryInterface newsRepository;
 
   HomeController(this.newsRepository);
 
