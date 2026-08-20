@@ -6,4 +6,7 @@ abstract class NewsRepositoryInterface {
   Future<List<ArticleModel>> getNewsByCategory(
       String category,
       );
+  Future<List<ArticleModel>> searchNews(
+      String query,
+      );
 }

@@ -68,4 +68,25 @@ class ApiService {
       throw Exception(e.toString());
     }
   }
+  Future<List<ArticleModel>> searchNews(String query) async {
+    try {
+      final response = await dio.get(
+        "${ApiConstants.baseUrl}/everything",
+        queryParameters: {
+          "q": query,
+          "sortBy": "publishedAt",
+          "apiKey": ApiConstants.apiKey,
+        },
+      );
+
+      final List articles = response.data["articles"];
+
+      return articles
+          .map((e) => ArticleModel.fromJson(e))
+          .toList();
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
 }
