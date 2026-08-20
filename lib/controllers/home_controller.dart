@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../feature/models/article_model.dart';
-import '../repositories/news_repository.dart';
+import '../mixins/safe_notify_mixin.dart';
 import '../repositories/news_repository_interface.dart';
 
-class HomeController extends ChangeNotifier {
+class HomeController extends ChangeNotifier with SafeNotify {
   final NewsRepositoryInterface newsRepository;
 
   HomeController(this.newsRepository);
@@ -17,7 +17,7 @@ class HomeController extends ChangeNotifier {
     print("getTopHeadlines called");
 
     isLoading = true;
-    notifyListeners();
+    safeNotify();
 
     try {
       articles = await newsRepository.getTopHeadlines();
@@ -28,13 +28,13 @@ class HomeController extends ChangeNotifier {
     }
 
     isLoading = false;
-    notifyListeners();
+    safeNotify();
   }
 
   Future<void> getNewsByCategory(String category) async {
     try {
       isLoading = true;
-      notifyListeners();
+      safeNotify();
 
       if (category == "All") {
         articles = await newsRepository.getTopHeadlines();
@@ -45,7 +45,7 @@ class HomeController extends ChangeNotifier {
       debugPrint(e.toString());
     } finally {
       isLoading = false;
-      notifyListeners();
+      safeNotify();
     }
   }
 }
