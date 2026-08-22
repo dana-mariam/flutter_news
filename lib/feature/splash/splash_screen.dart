@@ -4,6 +4,7 @@ import 'package:news_app/services/shared_preferences_service.dart';
 
 import '../../constants/storage_key.dart';
 import '../home/home_screen.dart';
+import '../main/main_screen.dart';
 import '../onboarding/onboarding_screen.dart';
 
 
@@ -54,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const MainScreen(),
         ),
       );
     }

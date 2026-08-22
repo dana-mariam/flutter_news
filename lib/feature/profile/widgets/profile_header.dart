@@ -22,18 +22,23 @@ class ProfileHeader extends StatelessWidget {
               Positioned(
                 bottom: 0,
                 right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.grey.shade300,
+                child: GestureDetector(
+                  onTap: () {
+                    // TODO: Change Profile Image
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.grey.shade300,
+                      ),
                     ),
-                  ),
-                  child: const Icon(
-                    Icons.camera_alt_outlined,
-                    size: 18,
+                    child: const Icon(
+                      Icons.camera_alt_outlined,
+                      size: 18,
+                    ),
                   ),
                 ),
               ),
@@ -43,7 +48,7 @@ class ProfileHeader extends StatelessWidget {
           const SizedBox(height: 12),
 
           const Text(
-            "dana",
+            "Dana",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,

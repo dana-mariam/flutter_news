@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/services/shared_preferences_service.dart';
 
-
 import 'constants/storage_key.dart';
-import 'feature/home/home_screen.dart';
+import 'feature/main/main_screen.dart';
 import 'feature/onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,7 +13,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -22,25 +20,15 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> init() async {
-    print("1");
-
     await Future.delayed(
       const Duration(seconds: 2),
     );
 
-    print("2");
-
-    bool? isFirstTime =
-    await SharedPreferencesService.getBool(
+    bool? isFirstTime = await SharedPreferencesService.getBool(
       StorageKey.isFirstTime,
     );
 
-    print("3");
-    print(isFirstTime);
-
     if (isFirstTime == null || isFirstTime == true) {
-      print("Go Onboarding");
-
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -48,12 +36,10 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       );
     } else {
-      print("Go Home");
-
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const MainScreen(),
         ),
       );
     }
@@ -63,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Image.asset(
-        "assets/images/splash.png",
+        "assets/images/iPhone 13 mini - 3.png",
         width: double.infinity,
         fit: BoxFit.cover,
       ),

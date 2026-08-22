@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide SearchController;
 import 'package:news_app/repositories/news_repository.dart';
 import 'package:provider/provider.dart';
 
+import 'SplashScreen.dart';
 import 'controllers/home_controller.dart';
 import 'feature/search/controllers/search_controller.dart';
 
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
             seedColor: Colors.deepPurple,
           ),
         ),
-        home: const MainScreen(),
+        home: const SplashScreen(),
       ),
     );
   }
